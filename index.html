@@ -1,0 +1,651 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>A Message By Joo — To Gowsya</title>
+    <meta
+      name="description"
+      content="Romantic page with the original cinematic background, improved quote animations, and 6 story concepts that load randomly on each refresh."
+    />
+
+    <!-- Fonts (keep the ones you liked) -->
+    <link
+      href="https://fonts.googleapis.com/css2?family=Great+Vibes&family=Playfair+Display:wght@400;600;700&display=swap"
+      rel="stylesheet"
+    />
+
+    <style>
+      :root {
+        --pink: #ff2f6d;
+        --pink-2: #ff73a3;
+        --violet: #882aff;
+        --ink-1: #fff2f7;
+        --ink-2: #ffd4e7;
+        --ink-3: #ffc2de;
+        --soft: #ffeaf5;
+        --bg1: #0c0212;
+        --bg2: #1b0522;
+        --bg3: #2a0831;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+      }
+      body {
+        color: #fff;
+        overflow: hidden;
+        background: radial-gradient(
+            1500px 900px at 20% 15%,
+            rgba(255, 47, 109, 0.16),
+            transparent 60%
+          ),
+          radial-gradient(
+            1400px 900px at 80% 85%,
+            rgba(136, 42, 255, 0.16),
+            transparent 60%
+          ),
+          linear-gradient(180deg, var(--bg1), var(--bg2) 60%, var(--bg3));
+        font-family: "Playfair Display", serif;
+      }
+
+      /* --- ORIGINAL background animations restored --- */
+      .animated-bg {
+        position: fixed;
+        inset: -10% -10%;
+        background: conic-gradient(
+          from 0deg at 50% 50%,
+          rgba(255, 47, 109, 0.28),
+          rgba(136, 42, 255, 0.24),
+          rgba(255, 62, 160, 0.24),
+          rgba(255, 47, 109, 0.28)
+        );
+        filter: blur(85px) saturate(125%);
+        animation: spin 52s linear infinite;
+        z-index: -3;
+      }
+      @keyframes spin {
+        to {
+          transform: rotate(360deg);
+        }
+      }
+
+      .word {
+        display: inline-block;
+        margin-right: 0.35em; /* add space between words */
+        background: linear-gradient(
+          90deg,
+          var(--ink-1),
+          var(--ink-2) 50%,
+          var(--ink-3)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 8px 24px rgba(255, 47, 109, 0.18);
+        opacity: 0;
+        transform: translateY(28px) scale(0.96) rotate(0.2deg);
+        filter: blur(8px);
+        animation: bloom 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      }
+
+      .line {
+        display: block;
+        overflow: visible;
+        position: relative;
+        padding: 0.25em 0; /* more breathing space between lines */
+        line-height: 1.8; /* taller line spacing for elegance */
+      }
+
+      .ribbons {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -2;
+      }
+      .ribbon {
+        position: absolute;
+        width: 150vmax;
+        height: 150vmax;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%) rotate(0deg);
+        background: conic-gradient(
+          from 0deg,
+          rgba(255, 47, 109, 0.24),
+          rgba(255, 115, 163, 0.16),
+          rgba(136, 42, 255, 0.22),
+          rgba(255, 62, 160, 0.2),
+          rgba(255, 47, 109, 0.24)
+        );
+        filter: blur(68px);
+        border-radius: 50%;
+        mix-blend-mode: screen;
+        animation: swirl 36s linear infinite;
+      }
+      .ribbon.r2 {
+        animation-duration: 52s;
+        opacity: 0.7;
+        transform: translate(-50%, -50%) rotate(30deg);
+      }
+      .ribbon.r3 {
+        animation-duration: 70s;
+        opacity: 0.55;
+        transform: translate(-50%, -50%) rotate(-25deg);
+      }
+      @keyframes swirl {
+        to {
+          transform: translate(-50%, -50%) rotate(360deg);
+        }
+      }
+
+      /* Floating hearts (original) */
+      .hearts {
+        position: fixed;
+        inset: 0;
+        pointer-events: none;
+        z-index: -1;
+        overflow: hidden;
+      }
+      .h {
+        position: absolute;
+        width: 22px;
+        height: 22px;
+        opacity: 0.55;
+        filter: drop-shadow(0 0 12px rgba(255, 47, 109, 0.6));
+        animation: floatUp var(--dur, 12s) linear infinite;
+      }
+      .h svg {
+        width: 100%;
+        height: 100%;
+      }
+      @keyframes floatUp {
+        0% {
+          transform: translateY(110vh) scale(0.7) rotate(0deg);
+        }
+        50% {
+          transform: translateY(50vh) scale(1) rotate(10deg);
+        }
+        100% {
+          transform: translateY(-20vh) scale(1.1) rotate(25deg);
+        }
+      }
+
+      /* Layout */
+      .hero {
+        position: relative;
+        height: 100vh;
+        width: 100vw;
+        display: grid;
+        place-items: center;
+        text-align: center;
+        padding: 0 6vw;
+      }
+
+      .headline {
+        font-family: "Great Vibes", cursive;
+        font-size: clamp(42px, 9vw, 92px);
+        line-height: 1;
+        margin: 0 0 12px;
+        color: #fff;
+        text-shadow: 0 8px 22px rgba(255, 62, 160, 0.26),
+          0 0 30px rgba(136, 42, 255, 0.2);
+        animation: headIn 0.9s ease-out both 0.15s;
+      }
+      @keyframes headIn {
+        from {
+          opacity: 0;
+          transform: translateY(12px) scale(0.98);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0) scale(1);
+        }
+      }
+
+      .subtitle {
+        font-weight: 600;
+        font-size: clamp(14px, 2.4vw, 20px);
+        color: var(--soft);
+        opacity: 0.95;
+        letter-spacing: 0.3px;
+        margin-bottom: 20px;
+        text-shadow: 0 0 18px rgba(255, 255, 255, 0.18);
+        animation: subIn 0.9s ease both 0.3s;
+      }
+      @keyframes subIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Quote block */
+      .shayari {
+        position: relative;
+        font-weight: 700;
+        font-size: clamp(22px, 4.6vw, 38px);
+        line-height: 1.6;
+        color: #ffffff;
+        letter-spacing: 0.2px;
+        text-wrap: balance;
+        max-width: 1060px;
+      }
+
+      /* Word-bloom (improved) */
+      .word {
+        display: inline-block;
+        background: linear-gradient(
+          90deg,
+          var(--ink-1),
+          var(--ink-2) 50%,
+          var(--ink-3)
+        );
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+        text-shadow: 0 8px 24px rgba(255, 47, 109, 0.18);
+        opacity: 0;
+        transform: translateY(28px) scale(0.96) rotate(0.2deg);
+        filter: blur(8px);
+        animation: bloom 0.85s cubic-bezier(0.2, 0.7, 0.2, 1) forwards;
+      }
+      @keyframes bloom {
+        60% {
+          opacity: 1;
+        }
+        100% {
+          opacity: 1;
+          transform: translateY(0) scale(1) rotate(0deg);
+          filter: blur(0);
+          text-shadow: 0 0 0 rgba(0, 0, 0, 0),
+            0 0 36px rgba(255, 144, 197, 0.25);
+        }
+      }
+
+      .line {
+        display: block;
+        overflow: visible;
+        position: relative;
+        padding: 0.18em 0;
+      }
+      .track {
+        position: absolute;
+        top: 50%;
+        left: -8vw;
+        width: 116vw;
+        height: 2px;
+        pointer-events: none;
+        opacity: 0;
+        background: linear-gradient(
+          90deg,
+          rgba(255, 255, 255, 0),
+          rgba(255, 255, 255, 0.22),
+          rgba(255, 255, 255, 0)
+        );
+        filter: blur(6px);
+        animation: sweep 2s ease-out forwards;
+      }
+      @keyframes sweep {
+        0% {
+          transform: translateX(-20%);
+          opacity: 0;
+        }
+        20% {
+          opacity: 0.9;
+        }
+        100% {
+          transform: translateX(20%);
+          opacity: 0;
+        }
+      }
+
+      /* Typewriter (for Letters concept) */
+      .letter {
+        font-style: italic;
+        font-weight: 600;
+        max-width: 900px;
+        margin: 0 auto;
+      }
+      .type-line {
+        position: relative;
+        display: inline-block;
+        white-space: pre-wrap;
+        overflow: hidden;
+        border-right: 2px solid rgba(255, 255, 255, 0.8);
+        animation: typing var(--dur, 3.2s) steps(32, end) forwards,
+          caret 650ms steps(1, end) infinite;
+      }
+      @keyframes typing {
+        from {
+          max-width: 0;
+        }
+        to {
+          max-width: 100%;
+        }
+      }
+      @keyframes caret {
+        0%,
+        100% {
+          border-color: rgba(255, 255, 255, 0);
+        }
+        50% {
+          border-color: rgba(255, 255, 255, 0.85);
+        }
+      }
+
+      /* CTA */
+      .cta {
+        margin-top: 28px;
+      }
+      .btn {
+        --h: 60px;
+        height: var(--h);
+        padding: 0 32px;
+        border: none;
+        border-radius: 999px;
+        font-weight: 800;
+        letter-spacing: 0.4px;
+        font-size: clamp(14px, 2.4vw, 18px);
+        color: #fff;
+        cursor: pointer;
+        background: radial-gradient(120% 120% at 20% 30%, #ff86af, #ff2f6d 60%),
+          linear-gradient(
+            90deg,
+            rgba(255, 255, 255, 0.2),
+            rgba(255, 255, 255, 0)
+          );
+        box-shadow: 0 16px 40px rgba(255, 47, 109, 0.45),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.22);
+        transform: translateZ(0);
+        transition: transform 0.18s ease, box-shadow 0.25s ease,
+          filter 0.25s ease;
+        position: relative;
+        overflow: hidden;
+      }
+      .btn::before {
+        content: "";
+        position: absolute;
+        inset: 0;
+        background: linear-gradient(
+          120deg,
+          rgba(255, 255, 255, 0.35),
+          rgba(255, 255, 255, 0) 30% 70%,
+          rgba(255, 255, 255, 0.35)
+        );
+        transform: translateX(-120%);
+        transition: transform 0.8s ease;
+      }
+      .btn:hover::before {
+        transform: translateX(120%);
+      }
+      .btn:hover {
+        transform: translateY(-3px);
+        filter: saturate(115%);
+        box-shadow: 0 22px 52px rgba(255, 47, 109, 0.55),
+          inset 0 0 0 2px rgba(255, 255, 255, 0.28);
+      }
+      .btn:active {
+        transform: translateY(-1px) scale(0.99);
+      }
+
+      /* Reduced motion */
+      @media (prefers-reduced-motion: reduce) {
+        * {
+          animation: none !important;
+          transition: none !important;
+        }
+      }
+
+      html,
+      body {
+        height: 100%;
+        margin: 0;
+        overflow: hidden; /* prevent any scrollbars */
+      }
+
+      .animated-bg,
+      .ribbons,
+      .hearts {
+        overflow: hidden; /* clip their children inside viewport */
+      }
+
+      .h {
+        will-change: transform; /* optimization */
+      }
+
+      @keyframes floatUp {
+        0% {
+          transform: translateY(100vh) scale(0.7) rotate(0deg);
+        }
+        50% {
+          transform: translateY(50vh) scale(1) rotate(10deg);
+        }
+        100% {
+          transform: translateY(-10vh) scale(1.1) rotate(25deg); /* reduce from -20vh to -10vh */
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Restored background layers -->
+    <div class="animated-bg" aria-hidden="true"></div>
+    <div class="ribbons" aria-hidden="true">
+      <div class="ribbon r1"></div>
+      <div class="ribbon r2"></div>
+      <div class="ribbon r3"></div>
+    </div>
+
+    <!-- Hearts gradient + field (original) -->
+    <svg width="0" height="0" aria-hidden="true">
+      <defs>
+        <linearGradient id="gheart" x1="0" y1="0" x2="1" y2="1">
+          <stop offset="0%" stop-color="#ff9ec6" />
+          <stop offset="60%" stop-color="#ff2f6d" />
+          <stop offset="100%" stop-color="#882aff" />
+        </linearGradient>
+      </defs>
+    </svg>
+    <div class="hearts" id="hearts"></div>
+
+    <main class="hero">
+      <header>
+        <h1 class="headline">A Message for You</h1>
+        <div class="subtitle">
+          Nine years, one heart, countless quiet prayers.
+        </div>
+      </header>
+
+      <!-- One shared shayari container (content swaps by concept) -->
+      <section class="shayari" id="shayari" aria-live="polite"></section>
+
+      <div class="cta">
+        <!-- Book redirect button restored -->
+        <button class="btn" id="go" type="button">
+          Open what I kept only for you ❤
+        </button>
+      </div>
+    </main>
+
+    <script>
+      // Birthday redirect (May 22)
+      (function () {
+        var d = new Date();
+        if (d.getMonth() === 4 && d.getDate() === 22) {
+          window.location.href = "Birthday/index.html";
+        }
+      })();
+
+      // Navigate to book (restored)
+      (function () {
+        var go = document.getElementById("go");
+        if (go) {
+          go.addEventListener(
+            "click",
+            function () {
+              window.location.href = "book.html";
+            },
+            false
+          );
+        }
+      })();
+
+      // Floating hearts field (original)
+      (function heartsField() {
+        var wrap = document.getElementById("hearts");
+        if (!wrap) return;
+        var W = window.innerWidth,
+          H = window.innerHeight;
+        var COUNT = Math.min(60, Math.floor((W * H) / 28000));
+        for (var i = 0; i < COUNT; i++) {
+          var n = document.createElement("div");
+          n.className = "h";
+          var size = 14 + Math.random() * 22;
+          n.setAttribute(
+            "style",
+            [
+              "width:" + size + "px",
+              "height:" + size + "px",
+              "left:" + Math.random() * 100 + "vw",
+              "top:" + (-20 - Math.random() * 80) + "vh",
+              "--dur:" + (10 + Math.random() * 12) + "s",
+              "opacity:" + (0.35 + Math.random() * 0.5).toFixed(2),
+              "animation-delay:" + -Math.random() * 12 + "s",
+            ].join(";")
+          );
+          n.innerHTML =
+            '<svg viewBox="0 0 24 24" fill="url(#gheart)"><path d="M12 21.35l-1.45-1.32C5.4 15.36 2 12.28 2 8.5 2 5.42 4.42 3 7.5 3c1.74 0 3.41.81 4.5 2.09C13.09 3.81 14.76 3 16.5 3 19.58 3 22 5.42 22 8.5c0 3.78-3.4 6.86-8.55 11.54L12 21.35z"/></svg>';
+          wrap.appendChild(n);
+        }
+      })();
+
+      // Utility: render lines with word-bloom animation
+      function renderBloomLines(container, lines, baseDelay) {
+        container.innerHTML = "";
+        lines.forEach(function (text, li) {
+          var line = document.createElement("span");
+          line.className = "line";
+          var track = document.createElement("span");
+          track.className = "track";
+          track.style.animationDelay = 0.25 + li * 0.55 + "s";
+          line.appendChild(track);
+          var tokens = text.split(/(\s+)/).filter(Boolean);
+          tokens.forEach(function (tok, i) {
+            var w = document.createElement("span");
+            w.className = "word";
+            w.textContent = tok;
+            w.style.animationDelay = baseDelay + li * 0.6 + i * 0.12 + "s";
+            line.appendChild(w);
+          });
+          container.appendChild(line);
+        });
+      }
+
+      // Utility: render typewriter lines (for Letters concept)
+      function renderTypewriter(container, lines) {
+        container.innerHTML = "";
+        var wrap = document.createElement("div");
+        wrap.className = "letter";
+        lines.forEach(function (text, i) {
+          var L = document.createElement("div");
+          L.className = "line";
+          var track = document.createElement("span");
+          track.className = "track";
+          track.style.animationDelay = 0.25 + i * 0.4 + "s";
+          L.appendChild(track);
+          var t = document.createElement("span");
+          t.className = "type-line";
+          t.textContent = text;
+          t.style.setProperty("--dur", 2.4 + i * 1.6 + "s");
+          t.style.animationDelay = 0.6 + i * 2.1 + "s";
+          L.appendChild(t);
+          wrap.appendChild(L);
+        });
+        container.appendChild(wrap);
+      }
+
+      // 6 concepts (final quotes)
+      var CONCEPTS = [
+        {
+          key: "journey",
+          mode: "bloom",
+          lines: [
+            "Year 1 — I found you, and my world was never the same.",
+            "Year 3 — People told me to forget, but my heart never agreed.",
+            "Year 6 — Silence became my answer, yet I kept waiting.",
+            "Year 9 — I still stand here, carrying your name in every breath.",
+          ],
+        },
+        {
+          key: "letters",
+          mode: "bloom",
+          lines: [
+            "Dear Mine, nine years have passed… yet my heartbeat never learned distance.",
+            "I have written a thousand letters in my heart none ever reached you.",
+            "But every word still lives, carrying your name.",
+          ],
+        },
+        {
+          key: "stars",
+          mode: "bloom",
+          lines: [
+            "Nine years beneath the same sky,",
+            "I searched for you among the stars.",
+            "Every night, I found you glowing in the silence.",
+          ],
+        },
+        {
+          key: "promise",
+          mode: "bloom",
+          lines: [
+            "I never asked for forever,",
+            "yet my heart chose it with you.",
+            "Nine years have passed,",
+            "and still my silence keeps the promise alive.",
+          ],
+        },
+        {
+          key: "wait",
+          mode: "bloom",
+          lines: [
+            "Some waits end in days,",
+            "some in years…",
+            "Mine has lasted a lifetime within nine.",
+            "Still, I wait, because my love never learned how to leave.",
+          ],
+        },
+        {
+          key: "vow",
+          mode: "bloom",
+          lines: [
+            "If love is measured in time,",
+            "mine would be eternal.",
+            "Nine years, unspoken, unseen, unanswered…",
+            "yet unbroken.",
+          ],
+        },
+      ];
+
+      function showRandomConcept() {
+        var container = document.getElementById("shayari");
+        var choice = CONCEPTS[Math.floor(Math.random() * CONCEPTS.length)];
+        if (choice.mode === "type") {
+          renderTypewriter(container, choice.lines);
+        } else {
+          renderBloomLines(container, choice.lines, 0.45);
+        }
+      }
+
+      // Init: random on load (no extra buttons)
+      showRandomConcept();
+    </script>
+  </body>
+</html>
